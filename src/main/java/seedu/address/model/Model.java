@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.client.Client;
 import seedu.address.model.client.Person;
 import seedu.address.model.issue.Issue;
 import seedu.address.model.project.Project;
@@ -15,6 +16,8 @@ import seedu.address.model.project.Project;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    Predicate<Client> PREDICATE_SHOW_ALL_CLIENTS = unused -> true;
     Predicate<Project> PREDICATE_SHOW_ALL_PROJECTS = unused -> true;
     Predicate<Issue> PREDICATE_SHOW_ALL_ISSUES = unused -> true;
 
@@ -65,11 +68,15 @@ public interface Model {
 
     boolean hasIssue(Issue issue);
 
+    boolean hasClient(Client client);
+
     /**
      * Deletes the given client.
      * The client must exist in the address book.
      */
     void deletePerson(Person target);
+
+    void deleteClient(Client target);
 
     void deleteProject(Project target);
 
@@ -83,6 +90,8 @@ public interface Model {
      */
     void addPerson(Person person);
 
+    void addClient(Client client);
+
     void addIssue(Issue issue);
 
     void setProject(Project target, Project editedProject);
@@ -94,12 +103,16 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    void setClient(Client target, Client editedPerson);
+
     void setIssue(Issue target, Issue editedIssue);
 
     /** Returns an unmodifiable view of the filtered client list */
     ObservableList<Person> getFilteredPersonList();
 
     ObservableList<Project> getFilteredProjectList();
+
+    ObservableList<Client> getFilteredClientList();
 
     ObservableList<Issue> getFilteredIssueList();
 
@@ -110,6 +123,8 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     void updateFilteredProjectList(Predicate<Project> predicate);
+
+    void updateFilteredClientList(Predicate<Client> predicate);
 
     void updateFilteredIssueList(Predicate<Issue> predicate);
 }
