@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.client.Person;
+import seedu.address.model.client.UniqueClientList;
 import seedu.address.model.client.UniquePersonList;
 import seedu.address.model.issue.Issue;
 import seedu.address.model.issue.UniqueIssueList;
@@ -24,6 +25,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueProjectList projects;
+
+    private final UniqueClientList clients;
+
     private final UniqueIssueList issues;
 
     /*
@@ -37,6 +41,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         projects = new UniqueProjectList();
         issues = new UniqueIssueList();
+        clients = new UniqueClientList();
     }
 
     public AddressBook() {}
@@ -56,6 +61,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
+        this.persons.setPersons(persons);
+    }
+
+    /**
+     * Replaces the contents of the client list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setClients(List<Client> clients) {
         this.persons.setPersons(persons);
     }
 
