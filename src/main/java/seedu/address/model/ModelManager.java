@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.client.Client;
 import seedu.address.model.client.Person;
 import seedu.address.model.issue.Issue;
 import seedu.address.model.project.Project;
@@ -24,6 +25,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    private final FilteredList<Client> filteredClients;
     private final FilteredList<Project> filteredProjects;
     private final FilteredList<Issue> filteredIssues;
 
@@ -40,6 +43,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredProjects = new FilteredList<>(this.addressBook.getProjectList());
         filteredIssues = new FilteredList<>(this.addressBook.getIssueList());
+        filteredClients = new FilteredList<>(this.addressBook.getClientList());
     }
 
     public ModelManager() {
@@ -100,6 +104,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasClient(Client client) {
+        requireNonNull(client);
+        return addressBook.hasClient(client);
+    }
+
+    @Override
     public boolean hasProject(Project project) {
         requireNonNull(project);
         return addressBook.hasProject(project);
@@ -114,6 +124,11 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+    }
+
+    @Override
+    public void deleteClient(Client target) {
+        addressBook.removeClient(target);
     }
 
     @Override
@@ -145,6 +160,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addClient(Client client) {
+        addressBook.addClient(client);
+        updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
@@ -156,6 +177,12 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedProject);
 
         addressBook.setProject(target, editedProject);
+    }
+
+    @Override
+    public void setClient(Client target, Client editedClient) {
+        requireAllNonNull(target, editedClient);
+        addressBook.setClient(target, editedClient);
     }
 
     @Override
@@ -182,6 +209,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Client> getFilteredClientList() {
+        return filteredClients;
+    }
+
+    @Override
     public ObservableList<Issue> getFilteredIssueList() {
         return filteredIssues;
     }
@@ -190,6 +222,12 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredClientList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredClients.setPredicate(predicate);
     }
 
     @Override
@@ -221,6 +259,7 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredClients.equals(other.filteredClients)
                 && filteredProjects.equals(other.filteredProjects)
                 && filteredIssues.equals(other.filteredIssues);
     }
