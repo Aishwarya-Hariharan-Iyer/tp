@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.client.Client;
 import seedu.address.model.client.Person;
 import seedu.address.model.client.UniqueClientList;
 import seedu.address.model.client.UniquePersonList;
@@ -65,11 +66,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the client list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the client list with {@code client}.
+     * {@code clients} must not contain duplicate clients.
      */
     public void setClients(List<Client> clients) {
-        this.persons.setPersons(persons);
+        this.clients.setClients(clients);
     }
 
     /**
@@ -97,16 +98,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setIssues(newData.getIssueList());
         setProjects(newData.getProjectList());
+        setClients(newData.getClientList());
     }
 
-    //// client-level operations
+
 
     /**
-     * Returns true if a client with the same identity as {@code client} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Returns true if a client with the same identity as {@code client} exists in the address book.
+     */
+    public boolean hasClient(Client client) {
+        requireNonNull(client);
+        return clients.contains(client);
     }
 
     /**
@@ -132,6 +142,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addPerson(Person p) {
         persons.add(p);
     }
+
+    /**
+     * Adds a client to the address book.
+     * The client must not already exist in the address book.
+     */
+    public void addClient(Client c) {
+        clients.add(c);
+    }
+
 
     /**
      * Adds a project to the address book.
@@ -173,6 +192,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given client {@code client} in the list with {@code editedClient}.
+     * {@code target} must exist in the address book.
+     * The client identity of {@code editedClient} must not be the same as another
+     * existing client in the address book.
+     */
+    public void setClient(Client target, Client editedClient) {
+        requireNonNull(editedClient);
+
+        clients.setClient(target, editedClient);
+    }
+
+
+    /**
      * Replaces the given issue {@code target} in the list with {@code editedIssue}.
      * {@code target} must exist in the address book.
      * The issue identity of {@code editedIssue} must not be the same as another
@@ -190,6 +222,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeClient(Client key) {
+        clients.remove(key);
     }
 
     /**
@@ -214,6 +254,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons\n"
                 + projects.asUnmodifiableObservableList().size() + " projects\n"
+                + clients.asUnmodifiableObservableList().size() + " clients\n"
                 + issues.asUnmodifiableObservableList().size() + " issues\n";
     }
 
@@ -230,6 +271,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Issue> getIssueList() {
         return issues.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Client> getClientList() {
+        return clients.asUnmodifiableObservableList();
     }
 
     /**
