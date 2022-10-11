@@ -9,8 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -25,9 +27,12 @@ import seedu.address.logic.commands.client.TagClientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Name;
 import seedu.address.model.client.Address;
+import seedu.address.model.client.Client;
 import seedu.address.model.client.ClientEmail;
+import seedu.address.model.client.ClientId;
 import seedu.address.model.client.ClientPhone;
 import seedu.address.model.client.Person;
+import seedu.address.model.project.Project;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -83,12 +88,13 @@ public class ClientCommandParser implements Parser<ClientCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         ClientPhone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         ClientEmail email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        //TODO: generate client id
+        ClientId id = new ClientId(0);
+        List<Project> projects = new ArrayList<>();
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Client client = new Client(name, phone, email, projects, id);
 
-        return new AddClientCommand(person);
+        return new AddClientCommand(client);
     }
 
     // TODO: revise syntax
