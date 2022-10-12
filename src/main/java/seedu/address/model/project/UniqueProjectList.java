@@ -84,6 +84,18 @@ public class UniqueProjectList implements Iterable<Project> {
         internalList.set(index, editedProject);
     }
 
+    // TODO: temporary getter for project, can be deleted when alt method to retrieve project is implemented
+    public static Project getProject(int projectId) {
+        for (Project p : internalList) {
+            ProjectId id = new ProjectId(projectId);
+            if (p.getId().equals(id)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+
     /**
      * Removes the equivalent project from the list.
      * The project must exist in the list.
