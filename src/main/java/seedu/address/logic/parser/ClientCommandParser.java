@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.FLAG_UNKNOWN_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_ARGUMENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.ClientCliSyntax.PREFIX_CLIENT_EMAIL;
+import static seedu.address.logic.parser.ClientCliSyntax.PREFIX_CLIENT_ID;
 import static seedu.address.logic.parser.ClientCliSyntax.PREFIX_CLIENT_PHONE;
 import static seedu.address.logic.parser.ClientCliSyntax.PREFIX_PROJECT_ID;
 
@@ -24,6 +26,7 @@ import seedu.address.logic.commands.client.find.FindClientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Name;
 import seedu.address.model.client.ClientEmail;
+import seedu.address.model.client.ClientId;
 import seedu.address.model.client.ClientPhone;
 import seedu.address.model.client.ClientWithoutModel;
 import seedu.address.model.client.predicates.EmailContainsKeywordsPredicate;
@@ -64,10 +67,6 @@ public class ClientCommandParser implements Parser<ClientCommand> {
         }
     }
 
-
-
-    // TODO: revise syntax
-
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -105,7 +104,6 @@ public class ClientCommandParser implements Parser<ClientCommand> {
         return new AddClientCommand(clientWithoutModel, projectId);
     }
 
-    // TODO: revise syntax
 
     /**
      * Parse a string of arguments for an edit client command
@@ -116,10 +114,41 @@ public class ClientCommandParser implements Parser<ClientCommand> {
      * @throws ParseException
      */
     private EditClientCommand parseEditClientCommand(String args) throws ParseException {
-        return null;
+       ArgumentMultimap argumentMultimap =
+               ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CLIENT_ID, PREFIX_CLIENT_EMAIL,
+                       PREFIX_CLIENT_PHONE);
+
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_CLIENT_ID)
+                || !argumentMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditClientCommand.MESSAGE_USAGE));
+        }
+
+        Name newName = ParserUtil.parseName(argumentMultimap.getValue(PREFIX_NAME).get());
+        ClientEmail newEmail = ParserUtil.parseEmail(argumentMultimap.getValue(PREFIX_CLIENT_EMAIL).get());
+        ClientPhone newPhone = ParserUtil.parsePhone(argumentMultimap.getValue(PREFIX_CLIENT_PHONE).get());
+        ClientId clientId = ParserUtil.parseClientId(argumentMultimap.getValue(PREFIX_CLIENT_ID).get());
+
+        if (!anyPrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_CLIENT_PHONE, PREFIX_CLIENT_EMAIL)) {
+            throw new ParseException(String.format(MESSAGE_MISSING_ARGUMENTS,
+                    EditClientCommand.MESSAGE_USAGE));
+        }
+
+        if (arePrefixesPresent(argumentMultimap, PREFIX_NAME)) {
+            newName = ParserUtil.parseName(argumentMultimap.getValue(PREFIX_NAME).get());
+        }
+
+        if (arePrefixesPresent(argumentMultimap, PREFIX_CLIENT_EMAIL)) {
+            newEmail = ParserUtil.parseEmail(argumentMultimap.getValue(PREFIX_CLIENT_EMAIL).get());
+        }
+
+        if (arePrefixesPresent(argumentMultimap, PREFIX_CLIENT_PHONE)) {
+            newPhone = ParserUtil.parsePhone(argumentMultimap.getValue(PREFIX_CLIENT_PHONE).get());
+        }
+
+        return new EditClientCommand(newName, newEmail, newPhone, clientId);
     }
 
-    // TODO: revise syntax
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -192,5 +221,13 @@ public class ClientCommandParser implements Parser<ClientCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if any of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
