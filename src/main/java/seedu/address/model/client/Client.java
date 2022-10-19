@@ -46,7 +46,6 @@ public class Client implements ComparableByName<Client>, HasIntegerIdentifier<Cl
         this.clientId = clientId;
     }
 
-
     /**
      * Constructs a client with inputs given by the user.
      * @param name String representing name of the client
@@ -183,6 +182,18 @@ public class Client implements ComparableByName<Client>, HasIntegerIdentifier<Cl
             return false;
         }
         return true;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setEmail(ClientEmail email) {
+        this.email = email;
+    }
+
+    public void setPhone(ClientPhone phone) {
+        this.phone = phone;
     }
 
     @Override
