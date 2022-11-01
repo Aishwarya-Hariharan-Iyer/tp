@@ -39,8 +39,8 @@ public class AddClientCommand extends ClientCommand {
             + PREFIX_PROJECT_ID + "1";
 
     public static final String MESSAGE_SUCCESS = "New client added: %1$s";
-    private static final String MESSAGE_PROJECT_LIST_UPDATED = "This client already heads other project(s) and now " +
-            "heads the given project as well.";
+    private static final String MESSAGE_PROJECT_LIST_UPDATED = "This client already heads other project(s) and now "
+            + "heads the given project as well.";
     private static final String MESSAGE_CLIENT_ALREADY_PRESENT_IN_PROJECT = "This project already has a client";
     private static final String MESSAGE_PROJECT_NOT_FOUND = "This project id does not exist in the address book";
 
@@ -90,9 +90,10 @@ public class AddClientCommand extends ClientCommand {
         ui.showClients();
         model.updateFilteredClientList(Model.PREDICATE_SHOW_ALL_CLIENTS);
 
-        if(isAddedUnderDifferentProject) {
+        if (isAddedUnderDifferentProject) {
             return new CommandResult(String.format(MESSAGE_PROJECT_LIST_UPDATED, toAddClient));
         }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddClient));
     }
 
