@@ -49,12 +49,12 @@ Given below are my contributions to the project.
 
 * **Documentation**:
 
-* Contributions to the UG
+* **Contributions to the UG**:
     * Help set up the initial UG with all content planned in first iteration (Pull request [\#23](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/23))
     * Added documentation and images for client command features: `add`, `delete`, `edit` (Pull request [\#130](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/130))
     * Added documentation and images for find command features under `Client`, `Project` and `Issue`(Pull request [\#145](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/145))
 
-* Contributions to the DG
+* **Contributions to the DG**:
     * Write-up for Delete Command Feature consisting of Delete Project Command, Delete Issue Command, and Delete
       Client Command (Pull request [\#236](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/236))
     * Write-up for Find Command Feature consisting of Find Project Command, Find Issue Command, and Find Client 
