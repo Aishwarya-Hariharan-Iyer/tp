@@ -47,14 +47,12 @@ Given below are my contributions to the project.
     * Wrote parser tests for edit commands of `Client`, `Project` and `Issue` (Pull request [\#248](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/248))
     * Wrote parser tests for the different `find` commands and for the `AddClientCommand` (Pull requests [\#248](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/248), [\#94](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/94))
 
---------------------------------------------------------------------------------------------------------------------
-
 * **Documentation**:
 
 * Contributions to the UG
-    + Help set up the initial UG with all content planned in first iteration (Pull request [\#23](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/23))
-    + Added documentation and images for client command features: `add`, `delete`, `edit` (Pull request [\#130](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/130))
-    + Added documentation and images for find command features under `Client`, `Project` and `Issue`(Pull request [\#145](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/145))
+    * Help set up the initial UG with all content planned in first iteration (Pull request [\#23](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/23))
+    * Added documentation and images for client command features: `add`, `delete`, `edit` (Pull request [\#130](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/130))
+    * Added documentation and images for find command features under `Client`, `Project` and `Issue`(Pull request [\#145](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/145))
 
 * Contributions to the DG
     * Write-up for Delete Command Feature consisting of Delete Project Command, Delete Issue Command, and Delete
@@ -71,5 +69,3 @@ Given below are my contributions to the project.
     * Reviewed and approved some PRs
     * Helped manage weekly meetings by setting Zoom links and taking notes
     * Reported bugs and suggestions for other teams in the class [(Link)](https://github.com/Aishwarya-Hariharan-Iyer/ped/issues)
-
---------------------------------------------------------------------------------------------------------------------
