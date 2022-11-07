@@ -4,6 +4,7 @@ title: Aishwarya's Project Portfolio Page
 ---
 
 ### Project Overview: DevEnable
+
 DevEnable is a product for developers who have to manage different projects spread across multiple GitHub
 repositories. It helps developers organize information about different projects they are working on in one place so
 that they may prioritize and have an overview. It removes the hassle of having to navigate to our/organization’s
@@ -18,8 +19,7 @@ Given below are my contributions to the project.
 * **New Feature**: `Client` class with `add`, `delete` and `edit` commands (Pull requests [\#83](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/83), [\#128](https://github.com/AY2223S1-CS2103-F13-1/tp/pull/128))
     * What it does: The `Client`, which can be a person or an organization, supervises one or more projects.
       Client have attributes such as name, phone number, email and the list of projects they supervise. We can
-      add a client to the `ClientList`, edit an existing client by specifying the attributes to be modified and
-      delete clients as well.
+      add a client to the `ClientList`, edit an existing client and delete clients as well.
     * Justification: Each project can be tied to at most one client so that developers can know who is in charge
       of their work. Moreover, the feature can later be expanded to have attributes such as importance of the
       client for the developer. 
